@@ -1,31 +1,89 @@
 const slides = [
-	{
-		"image":"slide1.jpg",
-		"tagLine":"Impressions tous formats <span>en boutique et en ligne</span>"
-	},
-	{
-		"image":"slide2.jpg",
-		"tagLine":"Tirages haute définition grand format <span>pour vos bureaux et events</span>"
-	},
-	{
-		"image":"slide3.jpg",
-		"tagLine":"Grand choix de couleurs <span>de CMJN aux pantones</span>"
-	},
-	{
-		"image":"slide4.png",
-		"tagLine":"Autocollants <span>avec découpe laser sur mesure</span>"
-	}
-]
+  {
+    image: "slide1.jpg",
+    tagLine: "Impressions tous formats en boutique et en ligne",
+  },
+  {
+    image: "slide2.jpg",
+    tagLine: "Tirages haute définition grand format pour vos bureaux et events",
+  },
+  {
+    image: "slide3.jpg",
+    tagLine: "Grand choix de couleurs de CMJN aux pantones",
+  },
+  {
+    image: "slide4.png",
+    tagLine: "Autocollants avec découpe laser sur mesure",
+  },
+];
 
-// Sélection des éléments des flèches
-const arrowLeft = document.getElementById('arrow_left');
-const arrowRight = document.getElementById('arrow_right');
+// Index de la diapositive actuelle
+let currentIndex = 0;
 
-// Ajout des écouteurs d'événements sur les flèches
-arrowLeft.addEventListener('click', () => {
-  console.log('Clic sur la flèche gauche');
+// Sélection des éléments du DOM
+const bannerImg = document.querySelector(".banner-img");
+const bannerText = document.querySelector("#banner p");
+const arrowLeft = document.getElementById("arrow_left");
+const arrowRight = document.getElementById("arrow_right");
+const bulletPoints = document.getElementById("bullet-points");
+
+// Vérification du bon fonctionnement des flèches
+arrowLeft.addEventListener("click", () => {
+  console.log("Clic sur la flèche gauche");
 });
 
-arrowRight.addEventListener('click', () => {
-  console.log('Clic sur la flèche droite');
+arrowRight.addEventListener("click", () => {
+  console.log("Clic sur la flèche droite");
 });
+
+// Affichage de la diapositive à l'index donné
+function displaySlide(index) {
+  const slide = slides[index];
+  bannerImg.src = `./assets/images/slideshow/${slide.image}`;
+  bannerText.innerHTML = slide.tagLine;
+}
+
+// Création des bullets points
+function createBulletPoints() {
+  for (let i = 0; i < slides.length; i++) {
+    const dot = document.createElement("span");
+    dot.classList.add("dot");
+    if (i === currentIndex) {
+      dot.classList.add("dot_selected");
+    }
+    bulletPoints.appendChild(dot);
+  }
+}
+
+// Mise à jour des points de repère (bullets)
+function updateBulletPoints() {
+  const dots = document.querySelectorAll(".dot");
+  dots.forEach((dot, index) => {
+    dot.classList.toggle("dot_selected", index === currentIndex);
+  });
+}
+
+// Gestionnaire d'événement pour les flèches
+arrowLeft.addEventListener("click", () => {
+  currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+  displaySlide(currentIndex);
+  updateBulletPoints();
+});
+
+arrowRight.addEventListener("click", () => {
+  currentIndex = (currentIndex + 1) % slides.length;
+  displaySlide(currentIndex);
+  updateBulletPoints();
+});
+
+// Gestionnaire d'événement pour les bullets points
+bulletPoints.addEventListener("click", (event) => {
+  if (event.target.classList.contains("dot")) {
+    currentIndex = Array.from(bulletPoints.children).indexOf(event.target);
+    displaySlide(currentIndex);
+    updateBulletPoints();
+  }
+});
+
+// Création des bullets points
+createBulletPoints();
