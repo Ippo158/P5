@@ -55,7 +55,9 @@ function createBulletPoints() {
   }
 }
 
-// Mise à jour des points de repère (bullets)
+createBulletPoints();
+
+// Mise à jour des bullets points
 function updateBulletPoints() {
   const dots = document.querySelectorAll(".dot");
   dots.forEach((dot, index) => {
@@ -84,6 +86,3 @@ bulletPoints.addEventListener("click", (event) => {
     updateBulletPoints();
   }
 });
-
-// Création des bullets points
-createBulletPoints();
