@@ -77,12 +77,3 @@ arrowRight.addEventListener("click", () => {
   displaySlide(currentIndex);
   updateBulletPoints();
 });
-
-// Gestionnaire d'événement pour les bullets points
-bulletPoints.addEventListener("click", (event) => {
-  if (event.target.classList.contains("dot")) {
-    currentIndex = Array.from(bulletPoints.children).indexOf(event.target);
-    displaySlide(currentIndex);
-    updateBulletPoints();
-  }
-});
