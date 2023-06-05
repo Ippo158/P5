@@ -17,17 +17,24 @@ const slides = [
   },
 ];
 
+//VARIABLES
+
 // Index de la diapositive actuelle
+
 let currentIndex = 0;
 
 // Sélection des éléments du DOM
+
 const bannerImg = document.querySelector(".banner-img");
 const bannerText = document.querySelector("#banner p");
 const arrowLeft = document.getElementById("arrow_left");
 const arrowRight = document.getElementById("arrow_right");
 const bulletPoints = document.getElementById("bullet-points");
 
+//ETAPE 2
+
 // Vérification du bon fonctionnement des flèches
+
 arrowLeft.addEventListener("click", () => {
   console.log("Clic sur la flèche gauche");
 });
@@ -36,14 +43,10 @@ arrowRight.addEventListener("click", () => {
   console.log("Clic sur la flèche droite");
 });
 
-// Affichage de la diapositive à l'index donné
-function displaySlide(index) {
-  const slide = slides[index];
-  bannerImg.src = `./assets/images/slideshow/${slide.image}`;
-  bannerText.innerHTML = slide.tagLine;
-}
+// ETAPE 3
 
 // Création des bullets points
+
 function createBulletPoints() {
   for (let i = 0; i < slides.length; i++) {
     const dot = document.createElement("span");
@@ -57,7 +60,20 @@ function createBulletPoints() {
 
 createBulletPoints();
 
+
+// ETAPE 4 et 5
+
+// Affichage de la diapositive à l'index donné
+
+function displaySlide(index) {
+  const slide = slides[index];
+  bannerImg.src = `./assets/images/slideshow/${slide.image}`;
+  bannerText.innerHTML = slide.tagLine;
+}
+
+
 // Mise à jour des bullets points
+
 function updateBulletPoints() {
   const dots = document.querySelectorAll(".dot");
   dots.forEach((dot, index) => {
@@ -66,6 +82,7 @@ function updateBulletPoints() {
 }
 
 // Gestionnaire d'événement pour les flèches
+
 arrowLeft.addEventListener("click", () => {
   currentIndex = (currentIndex - 1 + slides.length) % slides.length;
   displaySlide(currentIndex);
@@ -77,3 +94,4 @@ arrowRight.addEventListener("click", () => {
   displaySlide(currentIndex);
   updateBulletPoints();
 });
+
